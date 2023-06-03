@@ -1,0 +1,143 @@
+.profile-cabecera {
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.podcast-lista {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr 1fr 1fr !important;
+  width: 100%;
+  place-items: center;
+}
+
+.contenedor-podcast {
+  padding-left: 20px;
+  padding-right: 20px;
+  width: 100%;
+}
+
+.profile {
+  width: 100%;
+  /* height: 300px; */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgb(231, 231, 231);
+  padding: 70px 0px !important;
+}
+
+.card-podcast.hover {
+  transition: all 0.5s;
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
+.card-podcast.hover .card-podcast-body {
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.1);
+}
+.card-podcast:hover.hover {
+  transform: scale(0.92) !important;
+  cursor: pointer;
+}
+
+.podcast-select {
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  gap: 60px;
+}
+
+.podcast-select img {
+  width: 320px;
+  height: 250px;
+  border-radius: 16px;
+}
+
+.podcast-visual {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 10px;
+  gap: 20px;
+  background-color: white;
+  border-radius: 16px;
+}
+.podcast-select .podcast-audio {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  gap: 30px;
+}
+
+.player {
+  width: 400px;
+  display: grid;
+  grid-template-columns: 48px 1fr 48px;
+  gap: 16px;
+  padding: 8px 24px;
+  position: relative;
+  border-radius: 64px;
+  /* background-color: rgb(131, 21, 131); */
+}
+
+.control,
+#current {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-block: 16px;
+  z-index: 2;
+}
+
+#playbtn {
+  font-size: 24px;
+  /* color: transparent; */
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: white;
+  cursor: pointer;
+}
+
+#playbtn:hover {
+  -webkit-text-stroke-color: white;
+}
+
+.info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 21px;
+  z-index: 10;
+  color: black;
+}
+
+#current {
+  text-align: right;
+}
+
+.bar {
+  background-color: #6a89ca;
+  overflow: hidden;
+  position: absolute;
+  border-radius: 64px;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+#progress {
+  display: block;
+  position: relative;
+  background-color: rgb(31, 202, 54);
+  border-radius: 64px;
+  width: var(--progress, 0%);
+  transition: all 1s linear;
+  height: 100%;
+  z-index: 0;
+}

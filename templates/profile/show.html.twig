@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{# ... #}
+
+{% block body %}
+    <div class="profile w-100 d-flex" >
+
+
+        <div class="podcast-select">
+        
+            <div class="podcast-visual">
+                <img class="" src="/uploads/{{targetPodcast.imagen}}" alt="Card image cap">
+                <h4>{{targetPodcast.titulo}}</h4>
+              
+            </div>
+
+            <div class="podcast-audio">
+                
+                <p class="w-50 text-justify">{{targetPodcast.descripcion}}</p>
+                <audio id="player" src="{{absolute_url(asset('uploads/'~ targetPodcast.audio))}}">
+                    Your browser does not support the <code>audio</code> element.
+                </audio>
+                
+                <div class="player" >
+                    <div class="control">
+                        <i class="fa-solid fa-play" id="playbtn"></i>
+                    </div>
+                    <div class="info">
+                        {{targetPodcast.titulo}}
+                    </div>
+                    <div class="bar">
+                        <div id="progress"></div>
+                    </div>
+                    <div id="current">0:00</div>
+                </div>
+
+                <div class="w-100 d-flex justify-content-start">
+                    <a class="btn btn btn-success mr-4" href="{{path('_profiler')}}">Volver</a>
+                    <a class="btn btn btn-warning" href="{{path('edit_podcast',{'id':targetPodcast.id})}}">Editar</a>
+                </div>
+               
+            </div>
+             
+        </div>
+    
+        {# <h1 class="hero-titulo">Hola {{user.nombre}}!</h1>
+        <a class="btn btn-lg btn-info text-white" href="/profile/nuevo-podcast">Nuevo Podcast</a> #}
+
+    </div>
+
+    {% if podcasts %}
+        <div class="seccion-podcast w-100 d-flex mt-5" >
+
+            <div class="contenedor-podcast">
+                <div class="row mb-3 mt-3">
+                    <h2>El Resto de Tus Podcasts!</h2>
+                </div>
+                <div class="podcast-lista row ">
+
+                    {% for podcast in podcasts %}
+
+                    <div class="card-podcast hover" >
+                        <img class="card-podcast-img-top" src="/uploads/{{podcast.imagen}}" alt="Card image cap">
+                        <div class="card-podcast-body">
+                            <h4>{{podcast.titulo}}</h4>
+                            <p class="card-pocast-text">{{ podcast.descripcion }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block stylesheets %}
+         <link href="{{ asset('css/home.css') }}" rel="stylesheet"/>
+         <link href="{{ asset('css/profile.css') }}" rel="stylesheet"/>
+{% endblock %}
+
