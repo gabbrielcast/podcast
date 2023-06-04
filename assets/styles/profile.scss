@@ -7,7 +7,7 @@
 
 .podcast-lista {
   display: grid !important;
-  grid-template-columns: 1fr 1fr 1fr 1fr !important;
+  grid-template-columns: repeat(auto-fit, 300px) !important;
   width: 100%;
   place-items: center;
 }

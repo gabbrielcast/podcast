@@ -46,7 +46,7 @@
                                 </tbody>
                             </table>
                         {% else %}
-                        <div class="podcast-lista row ">
+                        <div class="podcast-lista">
                             {% for podcast in podcasts %}
                                 <a class="card-podcast hover" href=" {{ path('show_podcast',{'id':podcast.id}) }} ">
                                     <img class="card-podcast-img-top" src="/uploads/{{podcast.imagen}}" alt="Card image cap">
