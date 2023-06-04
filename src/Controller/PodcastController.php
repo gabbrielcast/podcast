@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Podcast;
+use App\Entity\User;
 use App\Repository\PodcastRepository;
+use App\Repository\UserRepository;
 use App\Service\FileUploader;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,7 +25,8 @@ class PodcastController extends AbstractController
 
 
     #[Route('/profile/nuevo-podcast', name: 'app_podcast', methods:['GET','POST'])]
-    public function nuevo(Request $request, SluggerInterface $slugger, PodcastRepository $repository): Response
+    public function nuevo(Request $request, SluggerInterface $slugger,
+        PodcastRepository $repository, UserRepository $userRepository): Response
     {
         $podcast = new Podcast();
 
@@ -34,7 +37,7 @@ class PodcastController extends AbstractController
             $form=$this->createFormBuilder($podcast)
             ->add('titulo', TextType::class)
             ->add('descripcion', TextType::class)
-            ->add('autor', NumberType::class)
+            ->add('autorId', NumberType::class,['data_class'=>null,'empty_data'=>'','mapped' => false])
             ->add('imagen', FileType::class)
             ->add('audio', FileType::class)
             ->add('save', SubmitType::class, ['label' => 'Create Podcast'])
@@ -69,7 +72,9 @@ class PodcastController extends AbstractController
                 $podcast->setImagen($imagenName);
                 $podcast->setAudio($audioName);
                 if($user_is_admin){
-                    $podcast->setAutor($form->get('user')->getData());
+                    $user_target=$userRepository->findBy(['id'=>$form->get('autorId')->getData()])[0];
+
+                    $podcast->setAutor($user_target);
                 }else{
                     $podcast->setAutor($this->getUser());
                 }

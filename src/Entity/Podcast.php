@@ -33,6 +33,7 @@ class Podcast implements JsonSerializable
     #[ORM\ManyToOne(inversedBy: 'podcasts')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $autor = null;
+    
 
     public function getId(): ?int
     {
@@ -107,6 +108,7 @@ class Podcast implements JsonSerializable
     {
         return $this->autor;
     }
+
 
     public function setAutor(?User $autor): self
     {
