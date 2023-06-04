@@ -31,7 +31,8 @@
                         <a class="nav-link" ></a>
                     <div>
                         {% if app.user == null %}
-                            <a href="/login" class="btn btn-sm btn-primary text-white">Inciar Sesion</a>
+                            <a href="/register" class="btn btn-m btn-dark text-white">Registrarse</a>
+                            <a href="/login" class="btn btn-m btn-primary text-white">Inciar Sesion</a>
                         {% else %}
                             <a href="{{path('app_logout')}}" class="btn btn-sm btn-dark text-white">Cerrar Sesión</a>
                         {% endif %}

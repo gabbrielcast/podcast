@@ -8,6 +8,7 @@ use App\Service\FileUploader;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -26,13 +27,28 @@ class PodcastController extends AbstractController
     {
         $podcast = new Podcast();
 
-        $form = $this->createFormBuilder($podcast)
-        ->add('titulo', TextType::class)
-        ->add('descripcion', TextType::class)
-        ->add('imagen', FileType::class)
-        ->add('audio', FileType::class)
-        ->add('save', SubmitType::class, ['label' => 'Create Podcast'])
-        ->getForm();
+        $form='';
+        $user_is_admin=in_array('ROLE_ADMIN',$this->getUser()->getRoles());
+
+        if($user_is_admin){
+            $form=$this->createFormBuilder($podcast)
+            ->add('titulo', TextType::class)
+            ->add('descripcion', TextType::class)
+            ->add('autor', NumberType::class)
+            ->add('imagen', FileType::class)
+            ->add('audio', FileType::class)
+            ->add('save', SubmitType::class, ['label' => 'Create Podcast'])
+            ->getForm();
+        }else{
+            $form = $this->createFormBuilder($podcast)
+            ->add('titulo', TextType::class)
+            ->add('descripcion', TextType::class)
+            ->add('imagen', FileType::class)
+            ->add('audio', FileType::class)
+            ->add('save', SubmitType::class, ['label' => 'Create Podcast'])
+            ->getForm();
+    
+        }
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -52,7 +68,11 @@ class PodcastController extends AbstractController
                 
                 $podcast->setImagen($imagenName);
                 $podcast->setAudio($audioName);
-                $podcast->setAutor($this->getUser());
+                if($user_is_admin){
+                    $podcast->setAutor($form->get('user')->getData());
+                }else{
+                    $podcast->setAutor($this->getUser());
+                }
                 $podcast->setFechaSubida(new DateTime());
               
             } catch (FileException $e) {
@@ -87,6 +107,7 @@ class PodcastController extends AbstractController
         ->add('audio', FileType::class,['required'=>false,'data_class'=>null,'empty_data'=>''])
         ->add('save', SubmitType::class, ['label' => 'Edit Podcast'])
         ->getForm();
+
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -126,6 +147,28 @@ class PodcastController extends AbstractController
         return $this->render('podcast/index.html.twig', [
             'form' => $form,
         ]);
+    }
+
+    
+    #[Route('/profile/podcasts/{id}', name: 'show_podcast')]
+    public function show(int $id,PodcastRepository $podcastRepository): Response
+    {
+        $user=$this->getUser();
+        
+        $podcasts=$podcastRepository->findPodcastByUserExcludeOne($user->getId(),$id);
+        $targetPodcast=$podcastRepository->findBy(['id'=>$id])[0];
+        return $this->render('podcast/show.html.twig', [
+            'targetPodcast'=> $targetPodcast,
+            'podcasts' => $podcasts,
+        ]);
+    }
+
+    #[Route('/profile/delete/{id}',name:'delete_podcast',methods:['GET','POST'])]
+    public function delete(Podcast $podcast, Request $request,PodcastRepository $repository,  SluggerInterface $slugger)
+    {
+        $repository->remove($podcast,true);
+
+        return $this->redirectToRoute('_profiler');
     }
 
 

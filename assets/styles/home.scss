@@ -1,0 +1,88 @@
+.img-hero {
+  width: 400px;
+  height: 400px;
+  filter: brightness(2.2);
+  mix-blend-mode: multiply;
+}
+
+.hero {
+  height: 600px;
+}
+
+.hero-titulo {
+  font-size: 60px;
+  padding-left: 20px;
+  background-image: linear-gradient(to right, #e6594f, #b558e4, #19ee4e);
+  text-transform: capitalize;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  background-clip: text;
+  background-size: 250%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: bg-animation 3s infinite alternate;
+  font-weight: bold;
+}
+
+@keyframes bg-animation {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 100%;
+  }
+}
+
+.img-seccion-hero {
+  display: flex;
+  justify-content: center;
+}
+
+.seccion-categorias {
+  display: flex;
+  place-items: center;
+  background: #1a2233;
+  padding: 60px 0px;
+}
+.seccion-categorias h2 {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+.card-podcast img {
+  width: 300px;
+  height: 200px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+
+  aspect-ratio: 1 / 1;
+}
+
+.card-podcast-body {
+  width: 300px;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  padding: 10px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.card-podcast:nth-child(1) .card-podcast-body {
+  transition: all 0.5s;
+  background-color: hsla(57, 99%, 73%, 0.9);
+}
+.card-podcast:nth-child(2) .card-podcast-body {
+  background: #7026f4;
+  color: white;
+}
+.card-podcast:nth-child(3) .card-podcast-body {
+  background: #3cff64;
+}
+.card-podcast {
+  transform: scale(0.9);
+}
+
+.list-categorias {
+  display: grid;
+  place-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}

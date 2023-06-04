@@ -4,10 +4,10 @@
 
 {% block body %}
 
-    <div class=" d-flex justify-content-center">
+    <div class=" d-flex align-items-center flex-column">
 
         {% if error %}
-            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            <div class="alert alert-danger w-25 mt-3" role="alert">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
 
         <form action="{{ path('app_login') }}" method="post" class="login">
@@ -25,15 +25,13 @@
             </div>
 
 
-            {# If you want to control the URL the user is redirected to on success
-            <input type="hidden" name="_target_path" value="/account"> #}
+            {# If you want to control the URL the user is redirected to on success #}
+            <input type="hidden" name="_target_path" value="{{path('_profiler')}}">
 
-            <button class="btn btn-lg btn-success" type="submit">login</button>
+            <div class="d-flex justify-content-center">
+                <a href="/" class="btn btn-secondary mr-3 d-flex align-items-center">Volver</a>
+                <button class="btn btn-lg btn-success" type="submit">Login</button>
+            </div>
         </form>
     </div>
 {% endblock %}
-
-{% block stylesheets %}
-         <link href="{{ asset('css/login.css') }}" rel="stylesheet"/>
-{% endblock %}
-

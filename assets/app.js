@@ -6,6 +6,6 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
-import "./styles/app.scss";
 const $ = require("jquery");
 require("bootstrap");
+import "./styles/app.scss";
