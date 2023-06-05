@@ -48,6 +48,14 @@ class PodcastRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findFirsts()
+    {
+        return $this->createQueryBuilder('p')
+            ->setMaxResults(4)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findPodcastByUserExcludeOne($userId,$podcastId)
     {
         return $this->createQueryBuilder('p')

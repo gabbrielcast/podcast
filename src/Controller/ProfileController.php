@@ -17,13 +17,13 @@ class ProfileController extends AbstractController
         
         if(in_array('ROLE_ADMIN',$user->getRoles())){
             $podcasts=$podcastRepository->findAll();
-        }else{
-            $podcasts=$user->getPodcasts()->toArray();
+            return $this->render('profile/index.html.twig', [
+                'user' => $user,
+                'podcasts'=>$podcasts,
+                
+            ]);
         }
-        return $this->render('profile/index.html.twig', [
-            'user' => $user,
-            'podcasts'=>$podcasts
-        ]);
+       
     }
 
 }
